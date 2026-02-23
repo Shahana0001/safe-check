@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Shield, Receipt, TrendingDown, Sparkles } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { Shield, Receipt, TrendingDown, Sparkles, CheckCircle, Info } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { SMSInput } from "@/components/SMSInput";
 import { TransactionTable } from "@/components/TransactionTable";
@@ -74,6 +75,25 @@ const Index = () => {
           <div className="animate-slide-up">
             <TransactionTable transactions={transactions} />
           </div>
+        )}
+
+        {transactions.length > 0 && subscriptions.length === 0 && (
+          <Card className="p-6 border-safe/30 bg-safe/5 animate-slide-up">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="h-5 w-5 text-safe shrink-0 mt-0.5" />
+              <div>
+                <h3 className="font-display font-bold text-base mb-1">No Recurring Subscriptions Detected</h3>
+                <p className="text-sm text-muted-foreground">
+                  We found {transactions.length} transaction{transactions.length > 1 ? "s" : ""} but no recurring patterns. 
+                  To detect subscriptions, paste <strong>multiple SMS messages</strong> from the same merchant over different months.
+                </p>
+                <p className="text-sm text-muted-foreground mt-2 flex items-center gap-1">
+                  <Info className="h-3.5 w-3.5" />
+                  Tip: Click "Load Sample Data" to see a full demo with recurring subscriptions.
+                </p>
+              </div>
+            </div>
+          </Card>
         )}
 
         {subscriptions.length > 0 && (
